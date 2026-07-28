@@ -25,4 +25,4 @@ USER appuser
 
 EXPOSE 3000
 
-CMD ["node", "src/indexx.js"]
+CMD ["node", "src/index.js"]
