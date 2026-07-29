@@ -272,3 +272,155 @@ Durante a atividade, a principal dificuldade foi compreender a comunicação ent
 - [x] CI funcionando
 - [x] Quebra proposital do CI documentada
 - [x] Prints incluídos
+
+
+
+---
+
+# CD — Publicação no Docker Hub
+
+**Usuário do Docker Hub:** maikonascimento
+
+**Imagem publicada:**
+
+```text
+maikonascimento/meu-projeto-docker:latest
+```
+
+**Link da imagem no Docker Hub:**
+
+```
+https://hub.docker.com/r/maikonascimento/meu-projeto-docker
+```
+
+## Disparo do Workflow
+
+O workflow é executado automaticamente sempre que ocorre um **push** na branch **main**.
+
+**Arquivo do workflow:**
+
+```text
+.github/workflows/cd.yml
+```
+
+---
+
+# Workflow de CD
+
+O pipeline de CD realiza automaticamente as seguintes etapas:
+
+1. Baixa o código do repositório.
+2. Faz login no Docker Hub utilizando Secrets do GitHub.
+3. Constrói a imagem Docker.
+4. Publica a imagem no Docker Hub utilizando a tag `latest`.
+
+---
+
+# Prints
+
+## Print 1 — Token criado no Docker Hub
+
+> Inserir imagem:
+>
+> `docs/imagens/cd-print1.png`
+
+---
+
+## Print 2 — Secrets cadastrados no GitHub
+
+Secrets utilizados:
+
+- DOCKERHUB_USERNAME
+- DOCKERHUB_TOKEN
+
+> Inserir imagem:
+>
+> `docs/imagens/cd-print2.png`
+
+---
+
+## Print 3 — Workflow de CD executando com sucesso
+
+Workflow:
+
+```
+CD - Publicar no Docker Hub
+```
+
+Status:
+
+```
+Success
+```
+
+> Inserir imagem:
+>
+> `docs/imagens/cd-print3.png`
+
+---
+
+## Print 4 — Imagem publicada no Docker Hub
+
+Imagem publicada:
+
+```text
+maikonascimento/meu-projeto-docker:latest
+```
+
+> Inserir imagem:
+>
+> `docs/imagens/cd-print4.png`
+
+---
+
+## Print 5 — Download da imagem
+
+Comando utilizado:
+
+```bash
+docker pull seu-usuario/meu-projeto-docker:latest
+```
+
+Para executar:
+
+```bash
+docker run -p 3000:3000 seu-usuario/meu-projeto-docker:latest
+```
+
+> Inserir imagem:
+>
+> `docs/imagens/cd-print5.png`
+
+---
+
+# Respostas
+
+## 1. O que é o Docker Hub?
+
+O Docker Hub é um repositório online de imagens Docker. Ele funciona como um catálogo onde desenvolvedores podem armazenar, compartilhar e distribuir imagens de containers, permitindo que qualquer pessoa faça o download e execute uma aplicação utilizando apenas um comando.
+
+---
+
+## 2. Diferença entre CI e CD
+
+O **CI (Continuous Integration)** verifica automaticamente se o projeto está funcionando corretamente sempre que há alterações no código, executando validações e testes.
+
+O **CD (Continuous Delivery/Deployment)** complementa esse processo, publicando automaticamente a imagem Docker aprovada no Docker Hub, tornando-a disponível para utilização por qualquer ambiente.
+
+---
+
+## 3. Por que usar Token e Secrets em vez de usuário e senha no `cd.yml`?
+
+Tokens e Secrets aumentam a segurança da aplicação, pois impedem que informações sensíveis fiquem gravadas no código-fonte. Os Secrets são armazenados de forma protegida pelo GitHub e podem ser alterados ou revogados sem expor a senha da conta.
+
+---
+
+## 4. O que significa a tag `latest`?
+
+A tag **latest** representa a versão mais recente da imagem publicada. Quando nenhum número de versão é informado durante o download da imagem, o Docker utiliza automaticamente a imagem marcada com essa tag.
+
+---
+
+# Conclusão
+
+Com a implementação do pipeline de CD, a aplicação passou a ser publicada automaticamente no Docker Hub após cada envio de código para a branch `main`. Dessa forma, a distribuição da aplicação torna-se automatizada, padronizada e reproduzível, bastando executar um `docker pull` para obter a versão mais recente da imagem.
